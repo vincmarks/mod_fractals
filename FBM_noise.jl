@@ -1,5 +1,5 @@
 
-include("fbm_pipeline.jl")
+include("setup.jl")
 
 N = 512
 KMIN = 4
