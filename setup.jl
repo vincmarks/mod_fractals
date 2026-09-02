@@ -10,7 +10,7 @@
 # loading packages
 using Pkg
 Pkg.activate(@__DIR__)
-# Pkg.add(["FFTW", "Plots", "Random", "Statistics", "LinearAlgebra", "WAV"])
+# Pkg.add(["FFTW", "Plots", "Random", "Statistics", "LinearAlgebra", "WAV", "NCDatasets"])
 Pkg.instantiate()
 using FFTW
 using Random
