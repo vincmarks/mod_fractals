@@ -13,3 +13,4 @@ function rhi_calc(q, T)
     Si = (p*s)/(epsi*psi) # Saturation ratio over ice
     return Si
 end
+
