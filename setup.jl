@@ -10,17 +10,18 @@
 # loading packages
 using Pkg
 Pkg.activate(@__DIR__)
-# Pkg.add(["FFTW", "Plots", "Random", "Statistics", "LinearAlgebra", "WAV", "NCDatasets"])
+# Pkg.add(["FFTW", "Plots", "Random", "Statistics", "LinearAlgebra", "WAV", "NCDatasets", "LaTeXStrings"])
 Pkg.instantiate()
 using FFTW
 using Random
 using Statistics
 using LinearAlgebra
 using Plots
+using Plots.PlotMeasures      # mm, cm, px, pt für die Ränder
 using Printf
 using WAV
 using NCDatasets
-
+using LaTeXStrings
 
 #######
 # fbm erzeugen und grid

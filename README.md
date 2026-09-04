@@ -9,6 +9,7 @@
         - [] juli hat größeren koeffizienten als im januar
         - [] bei höherem Druck wird größer
         -> umgekehrt wie in fig7 bei schuh et al.
-- [] topographische Daten der Alpenverwenden
+- [X] topographische Daten der Alpen verwenden
+- [X] Random Fotos (Places365) 
 
    

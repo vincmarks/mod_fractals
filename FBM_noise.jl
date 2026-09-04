@@ -25,7 +25,7 @@ zscore(x) = (x .- mean(x)) ./ std(x)
 ###############
 # Wie fBm bei verschiedenen β aussieht
 
-betas_demo = [1.0, 2.0, 3.0]
+betas_demo = [ 2.0, 3.0,4.0]
 fields = Dict(b => synth_fbm(N, b; rng = MersenneTwister(7)) for b in betas_demo)
 
 panels = Plots.Plot[]
@@ -166,3 +166,43 @@ if MAKE_AUDIO
                  Fs = sr)
     end
 end
+
+
+
+
+#################
+# animate of fBm with changing beta
+
+
+fps = 10
+n_frames = 101
+hold_frames = fps                 # 10 Frames = 1 Sekunde
+#video_size = (1920, 1080)         # Full HD
+angles = range(0, 360; length=n_frames)
+
+anim = @animate for frame in 1:(n_frames + hold_frames)
+    k = min(frame, n_frames)
+
+    a = angles[k]
+    i = (k - 1) * 0.04
+
+    Z = synth_fbm(200, i; rng=MersenneTwister(500))
+
+    surface(
+        Z;
+        size = (900, 900),
+        left_margin=-800mm,
+        right_margin=-8000mm,
+        bottom_margin=-800mm,
+        c=:terrain,
+        colorbar=false,
+        camera=(a, 48),
+        axis=false,
+        ticks=false,
+        title=L"\beta = %$(round(i, digits=2))",
+        titlefontsize=24,
+        linewidth=0
+    )
+end
+
+mp4(anim, joinpath(OUT, "alps_fullhd.mp4"); fps=fps)
