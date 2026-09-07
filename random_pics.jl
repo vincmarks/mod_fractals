@@ -6,7 +6,7 @@ TAR   = joinpath(@__DIR__, "random_pics.tar")
 OUT   = "out"
 N     = 512                # Kantenlänge des analysierten Ausschnitts
 KMIN  = 10
-KMAX  = N ÷ 4              # Nyquist-nahen, verrauschten Bereich meiden
+KMAX  = N ÷ 4             
 NPICS = 3_500                  # zum Anschauen der Verteilung einfach hochsetzen
 SEED  = 42
 
@@ -17,14 +17,8 @@ isdir(OUT) || mkdir(OUT)
 ########
 # Tar-Archiv lesen, ohne es auszupacken
 #
-# Das Archiv ist 2.3 GB groß und enthält 36 500 Bilder -- alles auszupacken
-# (oder pro Bild einmal komplett durchzuscannen) wäre Verschwendung, wenn man
-# am Ende nur ein paar zufällige Bilder braucht.
-#
-# tar ist zum Glück trivial aufgebaut: vor jedem Datei-Inhalt steht ein
-# 512-Byte-Header, der Inhalt selbst ist auf ein Vielfaches von 512 Bytes
-# aufgefüllt. Man kann also einmal von Header zu Header springen (liest nur
-# ~18 MB statt 2.3 GB) und sich merken, wo welche Datei liegt. Danach ist
+# von Header zu Header springen (liest nur
+# ~18 MB statt 2.3 GB) und merkt sich, wo welche Datei liegt. Danach ist
 # jedes einzelne Bild ein seek + read.
 
 struct TarEntry
@@ -93,11 +87,6 @@ to_gray(bytes::Vector{UInt8}) = Float64.(gray.(jpeg_decode(Gray, bytes)))
 
 Mittiger quadratischer Ausschnitt der Kantenlänge `n`, `nothing` falls das
 Bild dafür zu klein ist.
-
-Bewusst ein Ausschnitt und kein Skalieren: Herunterskalieren ist ein
-Tiefpassfilter, das genau den hochfrequenten Teil des Spektrums verbiegt,
-den wir eigentlich messen wollen. Die Places365-Bilder haben ohnehin eine
-kurze Kante von 512 px, der Ausschnitt kostet uns hier also nichts.
 """
 function center_crop(A::AbstractMatrix, n::Integer)
     h, w = size(A)

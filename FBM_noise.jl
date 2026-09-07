@@ -3,7 +3,7 @@ include("setup.jl")
 
 N = 512
 KMIN = 4
-KMAX = N ÷ 4          # Nyquist-Bereich meiden
+KMAX = N ÷ 4        
 OUT = "out"
 MAKE_AUDIO = true          
 
@@ -52,11 +52,11 @@ fig1 = plot(panels...; layout = grid(2, 3, heights = [0.62, 0.38]),
 savefig(fig1, joinpath(OUT, "01_fbm_felder.png"))
 
 ##########
-# Leistungsspektrum eines einzelnen Feldes + Fit, dazu die Summe/Mittelwert-Falle
+# Leistungsspektrum eines einzelnen Feldes + Fit
 field = fields[2.0]
 
 # rohes Periodogramm als Punktwolke -- nur eine Stichprobe der Punkte,
-# sonst wird der Plot unbrauchbar (N² Punkte bei N=512!)
+# sonst wird der Plot unbrauchbar (N² Punkte bei N=512)
 let
     f = field .- mean(field)
     P = abs2.(fft(f)) ./ length(f)

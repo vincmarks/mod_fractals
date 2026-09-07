@@ -1,7 +1,7 @@
 
-#  Phase 2: fBm-Felder synthetisieren und die Mess-Pipeline gegenprüfen
+#  FBM Noise erzeugen und auswerten
 #
-#  Idee: ein 2D-Feld mit vorgegebenem Spektralexponenten β erzeugen, β über
+#  Idee: ein Feld mit vorgegebenem β erzeugen, β über
 #  das radial gemittelte Leistungsspektrum zurückmessen, und schauen ob das
 #  wieder rauskommt was reingesteckt wurde.
 #
@@ -17,7 +17,7 @@ using Random
 using Statistics
 using LinearAlgebra
 using Plots
-using Plots.PlotMeasures      # mm, cm, px, pt für die Ränder
+using Plots.PlotMeasures 
 using Printf
 using WAV
 using NCDatasets
@@ -26,28 +26,19 @@ using LaTeXStrings
 #######
 # fbm erzeugen und grid
 
-"""
-    kgrid(N) -> Matrix{Float64}
-
-Betrag des Wellenzahlvektors für ein N x N Feld
-`fftfreq(N, N)` liefert 0, 1, …, N÷2-1, -N÷2, …, -1.
-"""
 function kgrid(N::Integer)
-    kx = collect(fftfreq(N, N))          # Spaltenrichtung (Dimension 1)
-    return sqrt.(kx .^ 2 .+ (kx') .^ 2)  # kx' = Zeilenrichtung (Dimension 2)
+    kx = collect(fftfreq(N, N))          # Spaltenrichtung (dimenstion 1)
+    return sqrt.(kx .^ 2 .+ (kx') .^ 2)  # kx' = Zeilenrichtung (Dimension 2), Betrag des Wellenzahlvektors für ein N x N Feld
 end
 
-kgrid1(n::Integer) = abs.(collect(fftfreq(n, n)))
+kgrid1(n::Integer) = abs.(collect(fftfreq(n, n))) # kgrid(N) -> Matrix{Float64}
 
 """
     synth_fbm(N, β; rng) -> Matrix{Float64}
 
 2D-Feld mit Leistungsspektrum ~ k^(-β).
 
-Weißes Gauß-Rauschen rein, FFT, mit k^(-β/2) filtern, zurück-transformieren.
-Weil das Ausgangsrauschen reell ist, ist seine FFT automatisch hermitesch --
-das Ergebnis bleibt also bis auf Rundungsfehler reell, ganz ohne dass man
-sich selbst um die Symmetrie kümmern müsste.
+Rauschen rein, dann FFT, dann mit k^(-β/2) filtern, dann zurücktransformieren
 """
 function synth_fbm(N::Integer, β::Real; rng::AbstractRNG = Random.default_rng())
     white = randn(rng, N, N)
@@ -61,7 +52,7 @@ function synth_fbm(N::Integer, β::Real; rng::AbstractRNG = Random.default_rng()
     return real.(ifft(F .* filt))
 end
 
-"""1D-Variante, z.B. für Klangbeispiele."""
+
 function synth_fbm1d(n::Integer, β::Real; rng::AbstractRNG = Random.default_rng())
     white = randn(rng, n)
     F = fft(white)
@@ -85,7 +76,7 @@ hann(n::Integer) = 0.5 .* (1 .- cos.(2π .* (0:n-1) ./ (n - 1)))
 
 Radial gemitteltes Leistungsspektrum eines quadratischen Feldes.
 
-`window`  -- 2D-Hann-Fenster gegen spektrale Leckage. Standardmäßig aus.
+`window`  -- 2D-Hann-Fenster gegen spektrale Leckage
 `combine` -- `:mean` ist die radiale Mittelung
 """
 function radial_spectrum(field::AbstractMatrix; window::Bool = false,
@@ -158,13 +149,13 @@ function fit_beta(k::AbstractVector, S::AbstractVector;
     return -slope, icept, r2
 end
 
-"""
-    measure(field; kmin=4, kmax=nothing, kwargs...) -> (β, achsenabschnitt, R², k, S)
 
-Komplette Messkette an einem Feld: Spektrum + Fit in einem Aufruf. Ohne
-`kmax` input wird bei N/4 abgeschnitten, um den verrauschten Bereich
-nahe der Nyquist-Frequenz gar nicht erst mitzufitten.
-"""
+#   measure(field; kmin=4, kmax=nothing, kwargs...) -> (β, achsenabschnitt, R², k, S)
+
+#Komplette Messkette an einem Feld: Spektrum + Fit in einem Aufruf. Ohne
+#`kmax` input wird bei N/4 abgeschnitten, um den verrauschten Bereich
+#nahe der Nyquist-Frequenz gar nicht erst mitzufitten.
+
 function measure(field::AbstractMatrix; kmin::Real = 4, kmax = nothing, kwargs...)
     k, S = radial_spectrum(field; kwargs...)
     kmx = kmax === nothing ? maximum(k) ÷ 2 : kmax
