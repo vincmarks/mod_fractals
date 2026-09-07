@@ -12,4 +12,10 @@
 - [X] topographische Daten der Alpen verwenden
 - [X] Random Fotos (Places365) 
 
-   
+## To-Do Helena:
+
+- [] Nordatlantik quadrat ausschneiden
+- [] Loopen über 11 Jahre
+- [] betas plotten
+- [] temp & spez plotten
+
