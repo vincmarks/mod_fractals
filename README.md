@@ -19,3 +19,4 @@
 - [] betas plotten
 - [] temp & spez plotten
 
+log sampling aus power spektrum für equidist verteilung
