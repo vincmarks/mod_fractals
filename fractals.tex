@@ -372,6 +372,36 @@ gemessenen Bereich liegen (das ist super).
   \label{fig:hist}
 \end{figure}
 
+\section{Atmmosphärendaten}
+
+\subsection{ERA5}
+
+Die Studie analysiert elf Jahre ERA5-Reanalysedaten für den Zeitraum vom 1. Januar 2010 bis zum 31. Dezember 2020. Die Daten liegen zu den vier synoptischen Standardterminen pro Tag (0, 6, 12, 18 UTC) vor, woraus sich insgesamt 16.060 Datensätze für die Analyse ergeben. ERA5 stellt Daten mit einer horizontalen Auflösung von 0,25 Grad in Länge und Breite sowie einer vertikalen Auflösung von 137 Modellebenen bereit, mit einer Auflösung im Bereich der Tropopause von etwa $300\,\unit{m}$. Der Datensatz enthält die Variablen Temperatur $T$ und spezifische Feuchte $q$. Für die Untersuchung wird relative Feuchte $rh_i$ betrachtet. Das für die Analyse verwendete geographische Gebiet wird auf ein Quadrat über dem Nordatlantik eingegrenzt, um Tropen und Polarregionen auszuschließen. In unserer Untersuchung konzentrieren wir uns auf die Druckfläche von 300 hPa. Die Daten der benachbarten Modellebenen wurden auf die jeweiligen isobaren Flächen interpoliert.
+
+\subsection{Leistungspektren}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{alps.png}
+  \caption{Analysiertes Höhenfeld, Achsen in Pixeln, Farbskala in Metern.}
+  \label{fig:alps}
+\end{figure}
+
+x zeigt ein beispielhaftes Leistungsspektrum für Januar 2010 für den gesamten Globus. Das bedeutet, sowohl frontale als auch konvektive Prozesse werden beachtet und Nordwinter wie Südsommer nehmen Einfluss.
+Auch hier wird bei $k = N/4$ abgeschnitten, sodass der
+verrauschte Bereich nahe der Nyquist-Frequenz nicht mitgefittet wird. Der hohe r-Wert erlaubt Vertrauen in die Ergebnisse. Die Auswertung spricht für das fraktale Verhalten der relativen Feuchteverteilung in der oberen Troposphäre.
+
+\subsection{Verlauf}
+
+Um eventualle saisonale Unterschiede der Dimension zu erkennen, beschränken wir den betrachteten Bereich auf ein Quadrat über dem Nordatlantik. So nimmt nur eine Jahreszeit Einfluss und tropische Konvektion sowie Polarluft werden nicht berücksichtigt.
+
+x zeigt den Verlauf von $\beta$ von Januar 2010 bis Dezember 2020. Ein saisonaler Einfluss lässt sich vermuten, doch starke Ausreißer in den Wintern 11/12 und 12/13 verzerren das Bild.
+
+x zeigt den Verlauf startend in 2013. Der saisonale Verlauf ist hier deutlicher, aber nicht sauber.
+
+Die Fehlerbalken gemittelt über die Monate sind vor Allem im Winter sehr groß. Die Ergebnisse und Annahmen über saisonales Verhalten sind also trotz großem r für die errechneten $\beta$ nicht sehr robust.
+
+
 \section{Fazit}
 
 Die Messkette liefert für selbst generierte Felder mit bekanntem Exponenten den
