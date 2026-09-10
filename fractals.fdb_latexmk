@@ -1,6 +1,6 @@
 # Fdb version 4
-["bibtex fractals"] 0 "fractals.aux" "fractals.bbl" "fractals" 0 0
-  "./fractals-blx.bib" 1789053869.84805 344 69a4b88762996b8a802bb5b7bf2ad13d ""
+["bibtex fractals"] 0 "fractals.aux" "fractals.bbl" "fractals" 1789055840.76902 0
+  "./fractals-blx.bib" 1789055840.19504 344 69a4b88762996b8a802bb5b7bf2ad13d ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1711143581 65510 b1f696b0241395385f422f67543c37fd ""
   "fractals.aux" 0 -1 0 "pdflatex"
   "references.bib" 0 -1 0 ""
@@ -8,8 +8,8 @@
   "fractals.bbl"
   "fractals.blg"
   (rewritten before read)
-["pdflatex"] 1789053873.41717 "/Users/Vincent_1/mod_fractals/fractals.tex" "fractals.pdf" "fractals" 1789053876.37735 0
-  "/Users/Vincent_1/mod_fractals/fractals.tex" 1789053867.01763 13780 41ea87aedc2ccf1f33034310b154ad46 ""
+["pdflatex"] 1789055837.47471 "/Users/Vincent_1/mod_fractals/fractals.tex" "fractals.pdf" "fractals" 1789055840.76972 0
+  "/Users/Vincent_1/mod_fractals/fractals.tex" 1789055838.76938 14342 140e5edf608976fd203a31e4cbc6705c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newpx/px-lms.enc" 1699652218 3877 2ca811886181a05a861d20a35de75e06 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1698694482 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1422827479 2083 60e36f8eac802fcaf19eabe2633b406e ""
@@ -212,11 +212,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1756059088 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1756059056 3345738 d8eb482a062ce4e3b73b8f30b4fb445b ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "fractals.aux" 1789053875.80874 7425 4f9c599f6cfee747ee685f076d9433e1 "pdflatex"
+  "fractals.aux" 1789055840.18768 7425 60f1c2529a380942766d47a311fae5f6 "pdflatex"
   "fractals.bbl" 0 -1 0 "bibtex fractals"
-  "fractals.out" 1789053874.92094 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "fractals.run.xml" 1789053875.81796 2663 0ea891599c1ea9f374e765e84cf8c009 "pdflatex"
-  "fractals.tex" 1789053867.01763 13780 41ea87aedc2ccf1f33034310b154ad46 ""
+  "fractals.out" 1789055839.15962 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "fractals.run.xml" 1789055840.19607 2663 0ea891599c1ea9f374e765e84cf8c009 "pdflatex"
+  "fractals.tex" 1789055838.76938 14342 140e5edf608976fd203a31e4cbc6705c ""
   "out/alps.png" 1789044667.55635 333880 51a8e3f39700cc44101575bd0552d346 ""
   "out/alps_powerspekt_low.png" 1789044668.73477 22471 e68049a82c2c26fe741ea3f7132fec29 ""
   "out/alps_powerspektrum_high.png" 1789044669.4536 22558 ce5cae4d960faf17561dd7a44e55aea4 ""

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.24)  10 SEP 2026 17:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.24)  10 SEP 2026 17:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1300,7 +1300,7 @@ LaTeX Font Info:    Font shape `OT1/minzpl/b/n' will be
 (Font)              scaled to size 8.0pt on input line 190.
 LaTeX Font Info:    Font shape `OT1/minzpl/b/n' will be
 (Font)              scaled to size 6.1pt on input line 190.
-<out/fbm_felder.png, id=5, 1405.25pt x 903.375pt>
+<out/fbm_felder.png, id=6, 1405.25pt x 903.375pt>
 File: out/fbm_felder.png Graphic file (type png)
 <use out/fbm_felder.png>
 Package pdftex.def Info: out/fbm_felder.png  used on input line 211.
@@ -1319,7 +1319,7 @@ LaTeX Font Info:    Font shape `OT1/minzpl/b/n' will be
 (Font)              scaled to size 7.3pt on input line 214.
 LaTeX Font Info:    Font shape `OT1/minzpl/b/n' will be
 (Font)              scaled to size 5.5pt on input line 214.
-<out/spektrum_fit.png, id=7, 602.25pt x 401.5pt>
+<out/spektrum_fit.png, id=8, 602.25pt x 401.5pt>
 File: out/spektrum_fit.png Graphic file (type png)
 <use out/spektrum_fit.png>
 Package pdftex.def Info: out/spektrum_fit.png  used on input line 224.
@@ -1340,12 +1340,12 @@ LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newpx/px-lms.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}]
 
 [2 <./out/fbm_felder.png> <./out/spektrum_fit.png>]
-<out/kalibrierung.png, id=32, 1405.25pt x 622.325pt>
+<out/kalibrierung.png, id=33, 1405.25pt x 622.325pt>
 File: out/kalibrierung.png Graphic file (type png)
 <use out/kalibrierung.png>
 Package pdftex.def Info: out/kalibrierung.png  used on input line 251.
 (pdftex.def)             Requested size: 469.47049pt x 207.90329pt.
-<out/landschaft_3d.png, id=34, 1405.25pt x 602.25pt>
+<out/landschaft_3d.png, id=35, 1405.25pt x 602.25pt>
 File: out/landschaft_3d.png Graphic file (type png)
 <use out/landschaft_3d.png>
 Package pdftex.def Info: out/landschaft_3d.png  used on input line 265.
@@ -1353,43 +1353,43 @@ Package pdftex.def Info: out/landschaft_3d.png  used on input line 265.
 
 
 [3 <./out/kalibrierung.png>]
-<out/alps.png, id=42, 602.25pt x 401.5pt>
+<out/alps.png, id=43, 602.25pt x 401.5pt>
 File: out/alps.png Graphic file (type png)
 <use out/alps.png>
 Package pdftex.def Info: out/alps.png  used on input line 280.
 (pdftex.def)             Requested size: 338.01932pt x 225.35307pt.
-<out/alps_powerspekt_low.png, id=44, 602.25pt x 401.5pt>
+<out/alps_powerspekt_low.png, id=47, 602.25pt x 401.5pt>
 File: out/alps_powerspekt_low.png Graphic file (type png)
 <use out/alps_powerspekt_low.png>
-Package pdftex.def Info: out/alps_powerspekt_low.png  used on input line 313.
+Package pdftex.def Info: out/alps_powerspekt_low.png  used on input line 314.
 (pdftex.def)             Requested size: 230.0431pt x 153.36188pt.
-<out/alps_powerspektrum_high.png, id=45, 602.25pt x 401.5pt>
+<out/alps_powerspektrum_high.png, id=48, 602.25pt x 401.5pt>
 File: out/alps_powerspektrum_high.png Graphic file (type png)
 <use out/alps_powerspektrum_high.png>
-Package pdftex.def Info: out/alps_powerspektrum_high.png  used on input line 317.
+Package pdftex.def Info: out/alps_powerspektrum_high.png  used on input line 318.
 (pdftex.def)             Requested size: 230.0431pt x 153.36188pt.
 
 
 [4 <./out/landschaft_3d.png> <./out/alps.png>]
-<out/pics_03_spektrum.png, id=54, 1204.5pt x 521.95pt>
+<out/pics_03_spektrum.png, id=57, 1204.5pt x 521.95pt>
 File: out/pics_03_spektrum.png Graphic file (type png)
 <use out/pics_03_spektrum.png>
-Package pdftex.def Info: out/pics_03_spektrum.png  used on input line 336.
+Package pdftex.def Info: out/pics_03_spektrum.png  used on input line 337.
 (pdftex.def)             Requested size: 469.47049pt x 203.4402pt.
-<out/pics_05_spektrum.png, id=55, 1204.5pt x 521.95pt>
+<out/pics_05_spektrum.png, id=58, 1204.5pt x 521.95pt>
 File: out/pics_05_spektrum.png Graphic file (type png)
 <use out/pics_05_spektrum.png>
-Package pdftex.def Info: out/pics_05_spektrum.png  used on input line 339.
+Package pdftex.def Info: out/pics_05_spektrum.png  used on input line 340.
 (pdftex.def)             Requested size: 469.47049pt x 203.4402pt.
-<reference_random_image.png, id=58, 614.295pt x 268.00125pt>
+<reference_random_image.png, id=61, 614.295pt x 268.00125pt>
 File: reference_random_image.png Graphic file (type png)
 <use reference_random_image.png>
-Package pdftex.def Info: reference_random_image.png  used on input line 361.
+Package pdftex.def Info: reference_random_image.png  used on input line 362.
 (pdftex.def)             Requested size: 469.47049pt x 204.8199pt.
-<out/pics_verteilung.png, id=60, 903.375pt x 562.1pt>
+<out/pics_verteilung.png, id=63, 903.375pt x 562.1pt>
 File: out/pics_verteilung.png Graphic file (type png)
 <use out/pics_verteilung.png>
-Package pdftex.def Info: out/pics_verteilung.png  used on input line 368.
+Package pdftex.def Info: out/pics_verteilung.png  used on input line 369.
 (pdftex.def)             Requested size: 399.05278pt x 248.30254pt.
 
 
@@ -1417,10 +1417,10 @@ Here is how much of TeX's memory you used:
  1143 hyphenation exceptions out of 8191
  108i,10n,107p,10933b,2463s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/NewPXMI.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/NewPXMI_gnu.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/pxmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/pxsys.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qhvb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/zplb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newpx/zplr.pfb>
-Output written on fractals.pdf (7 pages, 2472307 bytes).
+Output written on fractals.pdf (7 pages, 2473321 bytes).
 PDF statistics:
- 145 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
+ 149 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  25 named destinations out of 1000 (max. 500000)
  104 words of extra memory for PDF output out of 10000 (max. 10000000)
 

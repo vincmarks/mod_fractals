@@ -176,7 +176,7 @@ $\beta$ auf. Dann prüfen wir an selbsterzeugten Feldern mit
 bekanntem Exponenten, ob diese Kette den hineingesteckten Wert
 zurückliefert. Zuletzt wenden wir sie auf reale
 Datensätze an: ein Höhenmodell der Alpen und eine Stichprobe
-von Fotografien. Zum Reproduzieren der Ergebnisse
+von Fotografien. Alle Ergebnisse sind in dem GitHub-Repository \href{https://github.com/vincmarks/mod_fractals}{hier} zu finden
 
 \section{Messkette}
 
@@ -192,7 +192,7 @@ erhalten so eine eindimensionale Kurve $S(k)$. Optional wird vorher ein
 zweidimensionales Hann-Fenster angelegt, das auf gleiche Leistung normiert ist.
 \par
 $\beta$ ist die negative Steigung von $S(k)$ im log-log Plot. 
-Vor der linearen Regression werden die Punkte in 25 (einfach nach bisschen rumprobieren gewählt) 
+Vor der linearen Regression werden die Punkte in 25 (einfach nach ein bisschen Rumprobieren gewählt) 
 logarithmisch gleich breite Bins gemittelt. Das ist wichtig, weil die Zahl der Moden pro
 Ring mit $k$ wächst und der hochfrequente Bereich die Regression sonst
 vollständig dominiert. Als Gütemaß wird das Bestimmtheitsmaß $R^{2}$
@@ -204,7 +204,7 @@ verrauschte Bereich nahe der Nyquist-Frequenz nicht mitgefittet wird.
 \Cref{fig:fbm} zeigt Felder der Größe $512^{2}$ für drei Exponenten. Der
 Unterschied ist gut zu erkennen: bei $\beta = 1$ dominiert
 feines Rauschen, bei $\beta = 3$ bleiben großflächige
-Strukturen übrig. Darunter sind 1D-Schnitte der der Signale durch die Bildmitte zu sehen.
+Strukturen übrig. Darunter sind 1D-Schnitte der Signale durch die Bildmitte zu sehen.
 
 \begin{figure}[htbp]
   \centering
@@ -284,7 +284,7 @@ $47^{\circ}$ nördlicher Breite (\cref{fig:alps}).
 
 Das radial gemittelte Spektrum ist über den ganzen Bereich keine einzelne
 Gerade, sondern knickt bei $k \approx 108$ ab. Wir fitten deshalb zwei
-Abschnitte getrennt (\cref{fig:alpsspec}) (wird auch so in der Literatur gemacht). Umgerechnet auf Wellenlängen
+Abschnitte getrennt (\cref{fig:alpsspec}) (wird auch so in der Literatur gemacht, siehe \href{https://www.sciencedirect.com/science/article/pii/0378437192905304}{hier}). Umgerechnet auf Wellenlängen
 entspricht der erste Bereich Strukturen von etwa \SI{10}{\kilo\metre} bis
 \SI{1}{\kilo\metre}, der zweite von \SI{1}{\kilo\metre} bis
 \SI{250}{\metre}.
@@ -305,7 +305,8 @@ entspricht der erste Bereich Strukturen von etwa \SI{10}{\kilo\metre} bis
 \end{table}
 
 Beide Bereiche sind für sich genommen sehr gut durch ein Potenzgesetz
-beschrieben.
+beschrieben und weisen in etwa die Werte für $\beta$ auf, die auch in der Literatur zu finden sind (siehe \href{https://www.researchgate.net/publication/398557858_Self-affine_structure_of_glacial_surfaces_in_Lombardy}{hier}).
+
 
 \begin{figure}[htbp]
   \centering
@@ -354,7 +355,7 @@ Der oft zitierte Richtwert für natürliche Bilder ist $\beta \approx 2$
 (Torralba et al.), in der Abbildung als gepunktete Linie eingezeichnet.
 Anhand von \cref{fig:ref_vals} ist zu erkennen, dass die Werte von Torralba et al. 
 in der Regel im Bereich von $\beta \approx 2$ liegen und mit deren Fehlern immernoch in unserem
-gemessenen Bereich liegen.
+gemessenen Bereich liegen (das ist super).
 
 \begin{figure}[htbp]
   \centering
@@ -373,9 +374,11 @@ gemessenen Bereich liegen.
 
 \section{Fazit}
 
-Die Messkette liefert für synthetische Felder mit bekanntem Exponenten den
+Die Messkette liefert für selbst generierte Felder mit bekanntem Exponenten den
 richtigen Wert zurück, solange Hann-gefenstert wird; ohne Fenster ist sie oberhalb
-von $\beta \approx 3$ unbrauchbar. Beide realen Datensätze folgen einem Potenzgesetz wie
-auch schon in der Literatur bekannt ist.
+von $\beta \approx 3$ unbrauchbar. Alle realen Datensätze folgen einem Potenzgesetz, wie
+auch schon in der Literatur bekannt ist. 
+In dem \href{https://github.com/vincmarks/mod_fractals}{GitHub-Repo} sind außerdem noch drei Audiodateien, die 
+FBM-Noise für $\beta \in [1,2,3]$ darstellen.
 
 \end{document}
