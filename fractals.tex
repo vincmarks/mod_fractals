@@ -1,0 +1,163 @@
+\documentclass[]{scrartcl}
+
+% \usepackage[utf8]{luainputenc}
+\usepackage[USenglish]{babel}
+\usepackage{csquotes}
+
+\usepackage[a4paper,top=27mm,bottom=20mm,inner=25mm,outer=20mm]{geometry}
+
+% bibliography
+\usepackage[%
+  backend=bibtex,bibencoding=ascii,
+%   backend=biber,
+%   style=authoryear-comp, dashed=false,
+  style=numeric-comp,
+%   firstinits=true, uniquename=init, %abbreviate first names
+  giveninits=true, uniquename=init, %abbreviate first names
+  natbib=true,
+  url=true,
+  doi=true,
+  isbn=false,
+  backref=false,
+  maxnames=99,
+  ]{biblatex}
+\addbibresource{references.bib}
+
+% math packages
+\usepackage{amsmath}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{nicefrac}
+\usepackage{subdepth}
+\usepackage{comment}
+
+\usepackage{siunitx}
+\sisetup{separate-uncertainty=true, multi-part-units=single}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[section]{placeins}
+
+
+\usepackage{amsthm}
+
+% load hyperref after amsmath to get rid of stupid ``destination with the same identifier...'' warnings
+\usepackage[plainpages=false,pdfpagelabels,hidelinks,unicode]{hyperref}
+
+% cleveref must be loaded after hyperref
+\usepackage{cleveref}
+
+% new theorem-like environments must be defined after loading cleveref
+% \theoremstyle{plain}
+%   \newtheorem{theorem}{Theorem}
+%   \newtheorem{lemma}[theorem]{Lemma}
+%   \newtheorem{proposition}[theorem]{Proposition}
+%   \newtheorem{conjecture}[theorem]{Conjecture}
+%   \newtheorem{corollary}[theorem]{Corollary}
+% \theoremstyle{definition}
+%   \newtheorem{definition}[theorem]{Definition}
+%   \newtheorem{remark}[theorem]{Remark}
+%   \newtheorem{example}[theorem]{Example}
+%   \newtheorem{procedure}[theorem]{Procedure}
+%   \newtheorem{assumption}[theorem]{Assumption}
+% \numberwithin{theorem}{section}
+\usepackage{thmtools}
+% https://tex.stackexchange.com/questions/254398/in-theorem-style-how-to-make-the-dot-font-depend-on-the-name-font
+\usepackage{etoolbox}
+\makeatletter
+% don't typeset the note in a group, so the punctuation inherits
+% the font specification of the note
+\patchcmd{\thmt@setheadstyle}
+ {\bgroup\thmt@space}
+ {\thmt@space}
+ {}{}
+\patchcmd{\thmt@setheadstyle}
+ {\egroup\fi}
+ {\fi}
+ {}{}
+\makeatother
+\declaretheoremstyle[
+  bodyfont=\normalfont\itshape,
+  headformat=\NAME\ \NUMBER\NOTE,
+]{myplain}
+\declaretheoremstyle[
+  headformat=\NAME\ \NUMBER\NOTE,
+]{mydefinition}
+\newcommand{\envqed}{{\lower-0.3ex\hbox{$\triangleleft$}}}
+\declaretheorem[style=myplain,numberwithin=section]{theorem}
+\declaretheorem[style=myplain,numberlike=theorem]{lemma}
+\declaretheorem[style=myplain,numberlike=theorem]{proposition}
+\declaretheorem[style=myplain,numberlike=theorem]{conjecture}
+\declaretheorem[style=myplain,numberlike=theorem]{corollary}
+\declaretheorem[style=mydefinition,numberlike=theorem,qed=\envqed]{definition}
+\declaretheorem[style=mydefinition,numberlike=theorem,qed=\envqed]{remark}
+\declaretheorem[style=mydefinition,numberlike=theorem,qed=\envqed]{example}
+\declaretheorem[style=mydefinition,numberlike=theorem,qed=\envqed]{procedure}
+\declaretheorem[style=mydefinition,numberlike=theorem,qed=\envqed]{assumption}
+
+% figures
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage[small]{caption}
+\usepackage{subcaption}
+
+% suppress "multiple pdfs with page group included in a single page"
+% http://tex.stackexchange.com/questions/198586/conditional-based-on-the-version-of-pdflatex
+\begingroup\expandafter\expandafter\expandafter\endgroup
+\expandafter\ifx\csname pdfsuppresswarningpagegroup\endcsname\relax
+\else
+  \pdfsuppresswarningpagegroup=1\relax
+\fi
+
+
+% tables
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+
+% fonts
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage[no-math]{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+\fi
+\usepackage{newpxtext,newpxmath}
+% definitions
+
+\newcommand{\ii}{\mathrm{i}}
+
+\usepackage{authblk}
+% \renewcommand\Affilfont{\fontsize{8}{10.8}\selectfont}
+% \renewcommand\Affilfont{\usekomafont{section}}
+\renewcommand\Affilfont{\usekomafont{paragraph}}
+
+\newenvironment{keywords}{\par\textbf{Key words.}}{\par}
+\newenvironment{AMS}{\par\textbf{AMS subject classification.}}{\par}
+
+
+
+\title{Statistische Analyse natürlicher Daten}
+
+\author{Helena~Schuh und Vincent~Marks}
+
+
+
+\date{September 11, 2026}
+
+\begin{document}
+\maketitle
+
+
+
+\section{Introduction}
+
+
+
+\end{document}
