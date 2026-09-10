@@ -382,12 +382,12 @@ Die Studie analysiert elf Jahre ERA5-Reanalysedaten für den Zeitraum vom 1. Jan
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.72\linewidth]{alps.png}
-  \caption{Analysiertes Höhenfeld, Achsen in Pixeln, Farbskala in Metern.}
-  \label{fig:alps}
+  \includegraphics[width=0.72\linewidth]{05_rhi300_monatsspektrum_jan10.png}
+  \caption{Leistungsspektrum Januar 2010}
+  \label{fig:jan}
 \end{figure}
 
-x zeigt ein beispielhaftes Leistungsspektrum für Januar 2010 für den gesamten Globus. Das bedeutet, sowohl frontale als auch konvektive Prozesse werden beachtet und Nordwinter wie Südsommer nehmen Einfluss.
+\Cref{fig:jan} zeigt ein beispielhaftes Leistungsspektrum für Januar 2010 für den gesamten Globus. Das bedeutet, sowohl frontale als auch konvektive Prozesse werden beachtet und Nordwinter wie Südsommer nehmen Einfluss.
 Auch hier wird bei $k = N/4$ abgeschnitten, sodass der
 verrauschte Bereich nahe der Nyquist-Frequenz nicht mitgefittet wird. Der hohe r-Wert erlaubt Vertrauen in die Ergebnisse. Die Auswertung spricht für das fraktale Verhalten der relativen Feuchteverteilung in der oberen Troposphäre.
 
@@ -395,11 +395,32 @@ verrauschte Bereich nahe der Nyquist-Frequenz nicht mitgefittet wird. Der hohe r
 
 Um eventualle saisonale Unterschiede der Dimension zu erkennen, beschränken wir den betrachteten Bereich auf ein Quadrat über dem Nordatlantik. So nimmt nur eine Jahreszeit Einfluss und tropische Konvektion sowie Polarluft werden nicht berücksichtigt.
 
-x zeigt den Verlauf von $\beta$ von Januar 2010 bis Dezember 2020. Ein saisonaler Einfluss lässt sich vermuten, doch starke Ausreißer in den Wintern 11/12 und 12/13 verzerren das Bild.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{beta_monthly_timeseries.png}
+  \caption{Beta gemittelt für jeden Monat von Januar 2010 bis Dezember 2020}
+  \label{fig:jahr}
+\end{figure}
 
-x zeigt den Verlauf startend in 2013. Der saisonale Verlauf ist hier deutlicher, aber nicht sauber.
+\Cref{fig:jahr} zeigt den Verlauf von $\beta$ von Januar 2010 bis Dezember 2020. Ein saisonaler Einfluss lässt sich vermuten, doch starke Ausreißer in den Wintern 11/12 und 12/13 verzerren das Bild.
 
-Die Fehlerbalken gemittelt über die Monate sind vor Allem im Winter sehr groß. Die Ergebnisse und Annahmen über saisonales Verhalten sind also trotz großem r für die errechneten $\beta$ nicht sehr robust.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{beta_monthly_timeseries2013.png}
+  \caption{Beta gemittelt für jeden Monat von Januar 2013 bis Dezember 2020}
+  \label{fig:2013}
+\end{figure}
+
+\Cref{fig:2013} zeigt den Verlauf startend in 2013. Der saisonale Verlauf ist hier deutlicher, aber nicht sauber.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{beta_seasonal_pattern.png}
+  \caption{Error Bars: Beta gemittelt für jeden Jahresmonat}
+  \label{fig:error}
+\end{figure}
+
+Die Fehlerbalken in \Cref{fig:error} gemittelt über die Monate sind vor Allem im Winter sehr groß. Die Ergebnisse und Annahmen über saisonales Verhalten sind also trotz großem r für die errechneten $\beta$ nicht sehr robust.
 
 
 \section{Fazit}
