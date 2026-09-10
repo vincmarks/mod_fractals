@@ -12,8 +12,8 @@ include("setup.jl")
 ## Read in the data
 
 ds = NCDataset(joinpath(@__DIR__, "pl201001.nc"))
-q = ds["q"][461:671, 71:281, :, :]   # (211, 211, 3, 124) 72.5 N - 20 N; -65 E - -12.5 E
-t = ds["t"][461:671, 71:281, :, :]   # same shape
+q = ds["q"][461:670, 71:280, :, :]   # (211, 211, 3, 124) 72.5 N - 20 N; -65 E - -12.5 E
+t = ds["t"][461:670, 71:280, :, :]   # same shape
 
 lon = ds["longitude"][:]
 lat = ds["latitude"][:]
@@ -29,6 +29,35 @@ rhi_300 = rhi_calc(q[:, :, 3, :], t[:, :, 3, :], 30000);
 ## Convert into Fourier space
 
 # Ein 2D-Fourierspektrum für einen ausgewählten Zeitpunkt berechnen.
+
+n_times = size(rhi_300, 3)
+
+spectra = Matrix{Float64}(undef, 105, n_times)
+betas = Vector{Float64}(undef, n_times)
+r2_values = Vector{Float64}(undef, n_times)
+
+
+
+for t_idx in 1:n_times
+    field = rhi_300[:, :, t_idx]
+    β, _, r2, k, S = measure(field; window = true)
+    spectra[:, t_idx] = S
+    betas[t_idx] = β
+    r2_values[t_idx] = r2
+end
+
+S_month = vec(mean(spectra; dims = 2))
+β_month, icept_month, r2_month = fit_beta(k, S_month)
+
+## Plot the results
+
+p = plot(k, S_month; seriestype = :scatter, xscale = :log10, yscale = :log10,
+         markersize = 2, markerstrokewidth = 0, label = "S(k)");
+kf = [4.0, 210 / 4]
+plot!(p, kf, (10 ^ icept_month) .* kf .^ (-β_month); linestyle = :dash,
+      label = @sprintf("Fit: β = %.3f  (R² = %.4f)", β_month, r2_month));
+plot!(p; xlabel = "Wellenzahl k", ylabel = "Leistung S(k)",
+      title = "rhi_300, Monatsmittel aus $n_times Zeitpunkten")
 
 
 ## Create the animation
