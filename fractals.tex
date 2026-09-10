@@ -1,7 +1,7 @@
 \documentclass[]{scrartcl}
 
 % \usepackage[utf8]{luainputenc}
-\usepackage[USenglish]{babel}
+\usepackage[ngerman]{babel}
 \usepackage{csquotes}
 
 \usepackage[a4paper,top=27mm,bottom=20mm,inner=25mm,outer=20mm]{geometry}
@@ -102,6 +102,7 @@
 % figures
 \usepackage{color}
 \usepackage{graphicx}
+\graphicspath{{out/}}
 \usepackage[small]{caption}
 \usepackage{subcaption}
 
@@ -149,15 +150,232 @@
 
 
 
-\date{September 11, 2026}
+\date{11.~September 2026}
 
 \begin{document}
 \maketitle
 
+\section{Fragestellung}
+
+Viele natürliche Felder -- Gebirge, Wolken, alltägliche Fotografien -- sehen auf
+unterschiedlichen Größenskalen ähnlich aus. Ein einfaches Maß dafür ist das
+Leistungsspektrum. Trägt man die spektrale Leistung über der Wellenzahl auf, so
+findet man häufig ein Potenzgesetz
+%
+\begin{equation}\label{eq:powerlaw}
+  S(k) \propto k^{-\beta},
+\end{equation}
+%
+dessen Exponent $\beta$ beschreibt, wie sich die Varianz auf die Skalen
+verteilt. Kleines $\beta$ bedeutet viel Struktur im Feinen, also ein raues Feld,
+großes $\beta$ ein glattes Feld, dessen Leistung von den großen Skalen dominiert
+wird.
+
+Die Arbeit besteht aus drei Schritten. Zuerst bauen wir eine Messkette für
+$\beta$ auf. Dann prüfen wir an selbsterzeugten Feldern mit
+bekanntem Exponenten, ob diese Kette den hineingesteckten Wert
+zurückliefert. Zuletzt wenden wir sie auf reale
+Datensätze an: ein Höhenmodell der Alpen und eine Stichprobe
+von Fotografien. Zum Reproduzieren der Ergebnisse
+
+\section{Messkette}
+
+Ein Feld mit vorgegebenem $\beta$ entsteht durch Filtern im Fourierraum:
+Rauschen wird transformiert, mit $k^{-\beta/2}$ multipliziert und
+zurücktransformiert. Der halbe Exponent ist nötig, weil das Leistungsspektrum
+$\lvert F(k)\rvert^{2}$ den Filter quadriert. Die Mode $k = 0$ wird null gesetzt.
+\par
+Vom Feld wird der Mittelwert abgezogen (offset $k=0$ rausrechnen) und das Periodogramm
+$P = \lvert F \rvert^{2}/N^{2}$ gebildet. Da wir isotrope Felder annehmen,
+mitteln wir $P$ über Ringe konstanten Betrags $\lvert \mathbf{k}\rvert$ und
+erhalten so eine eindimensionale Kurve $S(k)$. Optional wird vorher ein
+zweidimensionales Hann-Fenster angelegt, das auf gleiche Leistung normiert ist.
+\par
+$\beta$ ist die negative Steigung von $S(k)$ im log-log Plot. 
+Vor der linearen Regression werden die Punkte in 25 (einfach nach bisschen rumprobieren gewählt) 
+logarithmisch gleich breite Bins gemittelt. Das ist wichtig, weil die Zahl der Moden pro
+Ring mit $k$ wächst und der hochfrequente Bereich die Regression sonst
+vollständig dominiert. Als Gütemaß wird das Bestimmtheitsmaß $R^{2}$
+mitgegeben. Standardmäßig wird bei $k = N/4$ abgeschnitten, damit der
+verrauschte Bereich nahe der Nyquist-Frequenz nicht mitgefittet wird.
+
+\section{Test an selbsterzeugten Feldern}
+
+\Cref{fig:fbm} zeigt Felder der Größe $512^{2}$ für drei Exponenten. Der
+Unterschied ist gut zu erkennen: bei $\beta = 1$ dominiert
+feines Rauschen, bei $\beta = 3$ bleiben großflächige
+Strukturen übrig. Darunter sind 1D-Schnitte der der Signale durch die Bildmitte zu sehen.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fbm_felder.png}
+  \caption{Selbsterzeugte Felder mit $S(k) \propto k^{-\beta}$ (oben, Graustufen) und jeweils ein horizontaler Schnitt durch die
+  Bildmitte (unten). Mit wachsendem $\beta$ verschwindet die kleinskaligen
+  Strukturen.}
+  \label{fig:fbm}
+\end{figure}
+
+Für ein einzelnes Feld mit $\beta = 2$ ist die Messung in \cref{fig:fit}
+dargestellt. Der Fit liefert $\beta = 1.979$ bei $R^{2} = 0.998$. Wir erhalten also
+einen guten Näherungswert für den Eingabewert.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{spektrum_fit.png}
+  \caption{Leistungsspektrum eines Feldes mit $\beta_\text{ein} = 2$. Graue
+  Punkte sind eine Stichprobe des rohen Periodogramms, blau die radiale
+  Mittelung, orange der Fit im Bereich $4 \le k \le 128$.}
+  \label{fig:fit}
+\end{figure}
+
+Ob das systematisch funktioniert, wird in \cref{fig:kalib} geprüft. Links: für
+$\beta_\text{ein}$ zwischen $0.5$ und $4.0$ wurden je 30 unabhängige Felder
+erzeugt und ausgewertet (wie im Monte-Carlo style). 
+Die Punkte liegen im gesamten Bereich auf der
+Winkelhalbierenden, wobei die Standardabweichungen über diese sehr klein ist.
+
+Der rechte Teil des Plots betrifft ein Problem, das erst bei echten Daten auftritt: unsere
+synthetischen Felder sind periodisch, weil sie aus einer FFT stammen. Reale
+Ausschnitte sind es nicht, links und rechts passen also nicht zusammen und
+an den Rändern können dann Artefakte entstehen. Um das
+nachzustellen, schneiden wir ein $512^{2}$-Stück aus einem größeren Feld heraus.
+Ohne Hann-Fenster (Tiefpassfilter: Hätten auch Gauß nehmen können) läuft die Messung dann in eine Sättigung: ab
+$\beta_\text{ein} \approx 3$ kommt unabhängig vom Eingabewert immer etwa $3$
+heraus. Der Grund ist unter spektrale Leckage in der Literatur zu finden 
+Mit Hann-Fenster folgt die Messung dem Eingabewert bis $\beta = 5$, mit leichter 
+Überschätzung nach oben hin. Für alle folgenden Auswertungen realer Daten werden 
+deshalb Hann-Fenster verwendet.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{kalibrierung.png}
+  \caption{Links: zurückgemessenes gegen hineingestecktes $\beta$, gemittelt über
+  30 Durchläufe, Fehlerbalken sind Standardabweichungen. Rechts: derselbe
+  Test für einen nicht-periodischen Ausschnitt aus einem größeren Feld, mit und
+  ohne Hann-Fenster.}
+  \label{fig:kalib}
+\end{figure}
+
+Dass solche Felder tatsächlich wie Landschaft wirken, zeigt die
+Oberflächendarstellung in \cref{fig:3d}. Sieht ja schonmal aus wie eine Berglandschaft, wenn
+man die Augen zusammenkneift, oder? 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{landschaft_3d.png}
+  \caption{Dieselben Felder als 3D-Plot. Links $\beta = 2$,
+  rechts $\beta = 3$.}
+  \label{fig:3d}
+\end{figure}
+
+\section{Topographie der Alpen}
+
+Als erster realer Datensatz dient eine Kachel des Copernicus-Höhenmodells
+COP30, $3600 \times 3600$ Pixel bei etwa \SI{30}{\metre} Auflösung, gelegen
+zwischen $10^{\circ}$ und $11^{\circ}$ östlicher Länge und $46^{\circ}$ bis
+$47^{\circ}$ nördlicher Breite (\cref{fig:alps}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{alps.png}
+  \caption{Analysiertes Höhenfeld, Achsen in Pixeln, Farbskala in Metern.}
+  \label{fig:alps}
+\end{figure}
+
+Das radial gemittelte Spektrum ist über den ganzen Bereich keine einzelne
+Gerade, sondern knickt bei $k \approx 108$ ab. Wir fitten deshalb zwei
+Abschnitte getrennt (\cref{fig:alpsspec}) (wird auch so in der Literatur gemacht). Umgerechnet auf Wellenlängen
+entspricht der erste Bereich Strukturen von etwa \SI{10}{\kilo\metre} bis
+\SI{1}{\kilo\metre}, der zweite von \SI{1}{\kilo\metre} bis
+\SI{250}{\metre}.
 
 
-\section{Introduction}
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Bereich & $k$ & $\beta$ & $R^{2}$ \\
+    \midrule
+    groß\-skalig  & $11 \dots 108$  & 3.873 & 0.9979 \\
+    klein\-skalig & $108 \dots 432$ & 4.320 & 0.9998 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Fitergebnisse für das Alpen-Höhenfeld.}
+  \label{tab:alps}
+\end{table}
+
+Beide Bereiche sind für sich genommen sehr gut durch ein Potenzgesetz
+beschrieben.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\linewidth]{alps_powerspekt_low.png}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\linewidth]{alps_powerspektrum_high.png}
+  \end{subfigure}
+  \caption{Leistungsspektrum des Höhenfeldes mit Fit im großskaligen (links) und
+  im kleinskaligen Bereich (rechts).}
+  \label{fig:alpsspec}
+\end{figure}
+
+\section{Fotografien}
+
+Der zweite Datensatz ist eine Stichprobe von 3500 Fotos aus dem
+Places365-Validierungssatz.
+
+Jedes Foto wird zunächst in Graustufen umgerechnet. Aus der Bildmitte
+wird ein Ausschnitt von $512 \times 512$ Pixeln genommen, Hann-gefenstert und im
+Bereich $10 \le k \le 128$ gefittet. \Cref{fig:pics} zeigt zwei Beispiele.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{\textwidth}
+    \includegraphics[width=\linewidth]{pics_03_spektrum.png}
+  \end{subfigure}\\[1ex]
+  \begin{subfigure}{\textwidth}
+    \includegraphics[width=\linewidth]{pics_05_spektrum.png}
+  \end{subfigure}
+  \caption{Zwei ausgewertete Fotos mit zugehörigem Leistungsspektrum und Fit.
+  Oben $\beta = 2.33$, unten $\beta = 2.56$.}
+  \label{fig:pics}
+\end{figure}
 
 
+
+Über alle 3500 Bilder ergibt sich die Verteilung in \cref{fig:hist}. Sie ist
+recht symmetrisch, mit Mittelwert $2.46$ und
+Standardabweichung $0.38$; das mittlere $R^{2}$ liegt bei $0.983$. Das
+Potenzgesetz ist also eine gute Beschreibung der Bilder. 
+
+Der oft zitierte Richtwert für natürliche Bilder ist $\beta \approx 2$
+(Torralba et al.), in der Abbildung als gepunktete Linie eingezeichnet.
+Anhand von \cref{fig:ref_vals} ist zu erkennen, dass die Werte von Torralba et al. 
+in der Regel im Bereich von $\beta \approx 2$ liegen und mit deren Fehlern immernoch in unserem
+gemessenen Bereich liegen.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\linewidth]{reference_random_image.png}
+  \caption{$\beta$  Werte von Torralba et al.}
+  \label{fig:ref_vals}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{pics_verteilung.png}
+  \caption{Verteilung von $\beta$ über 3500 Fotos. Gestrichelt der Mittelwert,
+  gepunktet der Literaturwert $\beta = 2$.}
+  \label{fig:hist}
+\end{figure}
+
+\section{Fazit}
+
+Die Messkette liefert für synthetische Felder mit bekanntem Exponenten den
+richtigen Wert zurück, solange Hann-gefenstert wird; ohne Fenster ist sie oberhalb
+von $\beta \approx 3$ unbrauchbar. Beide realen Datensätze folgen einem Potenzgesetz wie
+auch schon in der Literatur bekannt ist.
 
 \end{document}
