@@ -103,15 +103,22 @@ end
 
 ## Plot β over time (monthly averages)
 
+jahre = Date(year(first(monthly_dates)), 1, 1):Year(1):Date(year(last(monthly_dates)), 1, 1)
+
+
 if !isempty(monthly_betas)
     p_time = plot(monthly_dates, monthly_betas;
                   xlabel = "Date",
                   ylabel = "β (Fractal Exponent)",
                   title = "Monthly-Averaged Fractal Dimension (2010-2020)",
                   legend = false,
+                  marker = :circle,
                   markersize = 5,
                   markerstrokewidth = 0,
-                  linewidth = 2)
+                  markerstrokecolor = :false,
+                  linewidth = 2,
+                  xticks = (jahre, Dates.year.(jahre)),
+                  size = (1200, 400))
     display(p_time)
     savefig(p_time, "beta_monthly_timeseries.png")
     
@@ -168,3 +175,26 @@ if !isempty(monthly_betas)
     println("="^50)
     println("\nNote: Each β is fitted to the monthly-averaged spectrum (proper method)")
 end
+
+## lol
+
+mask = monthly_dates .>= Date(2013, 1, 1)
+monthly_dates_filtered = monthly_dates[mask]
+monthly_betas_filtered = monthly_betas[mask]
+
+jahre = Date(2013, 1, 1):Year(1):Date(year(last(monthly_dates_filtered)), 1, 1)
+
+p_time = plot(monthly_dates_filtered, monthly_betas_filtered;
+                xlabel = "Date",
+                ylabel = "β (Fractal Exponent)",
+                title = "Monthly-Averaged Fractal Dimension (2010-2020)",
+                legend = false,
+                marker = :circle,
+                markersize = 5,
+                markerstrokewidth = 0,
+                markerstrokecolor = :false,
+                linewidth = 2,
+                xticks = (jahre, Dates.year.(jahre)),
+                size = (1200, 400))
+display(p_time)
+savefig(p_time, "beta_monthly_timeseries2013.png")
