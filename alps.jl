@@ -1,7 +1,6 @@
 include("setup.jl")
-  # GDAL-Backend, das Rasters zum Lesen von GeoTIFFs braucht
-Rasters.checkmem!(false)   # Sandbox meldet fälschlich zu wenig freien RAM
 
+Rasters.checkmem!(false)   # Sandbox meldet fälschlich zu wenig freien RAM
 OUT = "out"
 isdir(OUT) || mkdir(OUT)
 

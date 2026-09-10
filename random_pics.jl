@@ -1,6 +1,4 @@
 include("setup.jl")
-using JpegTurbo
-using ImageCore: Gray, gray
 
 TAR   = joinpath(@__DIR__, "random_pics.tar")
 OUT   = "out"
@@ -28,7 +26,7 @@ struct TarEntry
 end
 
 "Feld fester Breite aus einem tar-Header, ohne die auffüllenden Nullbytes."
-field(hdr, range) = rstrip(String(@view hdr[range]), ['\0', ' '])
+field_(hdr, range) = rstrip(String(@view hdr[range]), ['\0', ' '])
 
 """
     tar_index(path; ext) -> Vector{TarEntry}
@@ -46,11 +44,11 @@ function tar_index(path::AbstractString; ext::AbstractString = ".jpg")
             readbytes!(io, hdr, 512) == 512 || break
             all(iszero, hdr) && break          # zwei Nullblöcke = Archivende
 
-            name = field(hdr, 1:100)
-            pre  = field(hdr, 346:500)         # ustar-Präfix bei langen Pfaden
+            name = field_(hdr, 1:100)
+            pre  = field_(hdr, 346:500)         # ustar-Präfix bei langen Pfaden
             isempty(pre) || (name = pre * "/" * name)
 
-            szf  = field(hdr, 125:136)         # Größe steht oktal im Header
+            szf  = field_(hdr, 125:136)         # Größe steht oktal im Header
             sz   = isempty(szf) ? 0 : parse(Int, szf; base = 8)
             typ  = Char(hdr[157])              # '0'/'\0' = reguläre Datei
 
@@ -154,7 +152,7 @@ for (i, (crop, (k, S, β, icept))) in enumerate(zip(crops, spectra))
     p_spec = plot(k, S; seriestype = :scatter, xscale = :log10, yscale = :log10,
                   markersize = 2, markerstrokewidth = 0, label = "S(k)")
     kf = [Float64(KMIN), Float64(KMAX)]
-    plot!(p_spec, kf, (10 ^ icept) .* kf .^ (-β); linestyle = :dash,
+    plot!(p_spec, kf, (10 ^ icept) .* kf .^ (-β); linestyle = :dashdot, linewidth = 3,
           label = @sprintf("Fit: β = %.3f  (R² = %.4f)", β, r2s[i]))
     plot!(p_spec; xlabel = "Wellenzahl k", ylabel = "Leistung S(k)",
           title = "Powerspektrum", legend = :bottomleft)

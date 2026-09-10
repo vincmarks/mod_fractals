@@ -22,8 +22,10 @@ using Printf
 using WAV
 using NCDatasets
 using LaTeXStrings
-using Rasters
+using Rasters # GDAL-Backend, das Rasters zum Lesen von GeoTIFFs braucht
 using ArchGDAL 
+using JpegTurbo
+using ImageCore: Gray, gray
 
 #######
 # fbm erzeugen und grid
@@ -48,8 +50,8 @@ function synth_fbm(N::Integer, β::Real; rng::AbstractRNG = Random.default_rng()
 
     k = kgrid(N)
     filt = zeros(Float64, N, N)
-    nz = k .> 0                          # k = 0 (DC) bleibt null
-    filt[nz] .= k[nz] .^ (-β / 2)        # /2, weil |F|² den Exponenten verdoppelt!
+    nz = k .> 0                          # k = 0 bleibt null
+    filt[nz] .= k[nz] .^ (-β / 2)        # /2, weil |F|² den Exponenten verdoppelt
 
     return real.(ifft(F .* filt))
 end
@@ -68,9 +70,9 @@ function synth_fbm1d(n::Integer, β::Real; rng::AbstractRNG = Random.default_rng
 end
 
 ####
-# hann fenster - aktuell noch nicht zu benutzten
+# hann fenster für nichtperiodische Ausschnitte
 
-"""Hann-Fenster, identisch zu `numpy.hanning` (Endpunkte exakt null)."""
+"""Hann-Fenster"""
 hann(n::Integer) = 0.5 .* (1 .- cos.(2π .* (0:n-1) ./ (n - 1)))
 
 """
@@ -78,8 +80,8 @@ hann(n::Integer) = 0.5 .* (1 .- cos.(2π .* (0:n-1) ./ (n - 1)))
 
 Radial gemitteltes Leistungsspektrum eines quadratischen Feldes.
 
-`window`  -- 2D-Hann-Fenster gegen spektrale Leckage
-`combine` -- `:mean` ist die radiale Mittelung
+`window`: 2D-Hann-Fenster gegen spektrale Leckage
+`combine`: radiale Mittelung
 """
 function radial_spectrum(field::AbstractMatrix; window::Bool = false,
                          combine::Symbol = :mean)
@@ -114,11 +116,11 @@ end
 # fitting
 
 """
-    fit_beta(k, S; kmin, kmax, nbins=25) -> (β, achsenabschnitt, R²)
+    fit_beta(k, S; kmin, kmax, nbins=25) -> (β, achsenabschnitt, R^2)
 
 Steigung im Log-Log-Plot über logarithmisch gleichverteilte Bins.
 
-Das Log-Binning ist nötig, weil sonst rund 90 % der Punkte im hochfrequenten
+Das Log-Binning ist nötig, weil sonst rund viele der Punkte im hochfrequenten
 Bereich liegen und die Regression komplett dominieren würden.
 """
 function fit_beta(k::AbstractVector, S::AbstractVector;
@@ -154,9 +156,9 @@ end
 
 #   measure(field; kmin=4, kmax=nothing, kwargs...) -> (β, achsenabschnitt, R², k, S)
 
-#Komplette Messkette an einem Feld: Spektrum + Fit in einem Aufruf. Ohne
+#Komplette Messkette: Spektrum + Fit in einem Aufruf. Ohne
 #`kmax` input wird bei N/4 abgeschnitten, um den verrauschten Bereich
-#nahe der Nyquist-Frequenz gar nicht erst mitzufitten.
+#nahe der Nyquist-Frequenz nicht mitzufitten.
 
 function measure(field::AbstractMatrix; kmin::Real = 4, kmax = nothing, kwargs...)
     k, S = radial_spectrum(field; kwargs...)
